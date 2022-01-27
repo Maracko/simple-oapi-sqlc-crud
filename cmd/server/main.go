@@ -1,6 +1,4 @@
-// This is an example of implementing the Pet Store from the OpenAPI documentation
-// found at:
-// https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore.yaml
+// This is an example of implementing the ToDo API from the OpenAPI documentation
 
 package main
 
