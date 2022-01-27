@@ -1,0 +1,14 @@
+##TODO add migrations
+
+version: 1
+packages:
+  - path: '..'
+    name: 'db'
+    engine: 'postgresql'
+    schema:
+      - 'schema/00001_createTodoTable.up.sql'
+    queries:
+      - 'queries/todoQueries.sql'
+    emit_db_tags: true
+    emit_empty_slices: true
+    emit_result_struct_pointers: true
