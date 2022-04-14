@@ -6,7 +6,7 @@ import (
 	"github.com/maracko/oapi-sqlc-crud/db"
 )
 
-func mutateDBTodosIntoTodos(todos []*db.Todo) []Todo {
+func convertDBTodosIntoTodos(todos []*db.Todo) []Todo {
 	var res []Todo
 	for _, t := range todos {
 		var (
@@ -32,7 +32,7 @@ func mutateDBTodosIntoTodos(todos []*db.Todo) []Todo {
 	return res
 }
 
-func mutateDBTodoIntoTodo(todo *db.Todo) Todo {
+func convertDBTodoIntoTodo(todo *db.Todo) Todo {
 	var (
 		t Todo
 	)
@@ -50,7 +50,7 @@ func mutateDBTodoIntoTodo(todo *db.Todo) Todo {
 	return t
 }
 
-func mutateNewTodoIntoCreateTodoParams(todo AddTodoJSONRequestBody) db.CreateTodoParams {
+func convertNewTodoIntoCreateTodoParams(todo AddTodoJSONRequestBody) db.CreateTodoParams {
 	var (
 		content, title sql.NullString
 	)

@@ -33,7 +33,7 @@ func (s *TodoServer) GetTodos(w http.ResponseWriter, r *http.Request, params Get
 			render.Render(w, r, GetTodosJSONDefaultResponse(Error{Message: err.Error()}).Status(http.StatusInternalServerError))
 			return
 		}
-		render.Render(w, r, GetTodosJSON200Response(mutateDBTodosIntoTodos(res)))
+		render.Render(w, r, GetTodosJSON200Response(convertDBTodosIntoTodos(res)))
 		return
 	}
 	// Get all
@@ -42,7 +42,7 @@ func (s *TodoServer) GetTodos(w http.ResponseWriter, r *http.Request, params Get
 		render.Render(w, r, GetTodosJSONDefaultResponse(Error{Message: err.Error()}).Status(http.StatusInternalServerError))
 		return
 	}
-	render.Render(w, r, GetTodosJSON200Response(mutateDBTodosIntoTodos(res)))
+	render.Render(w, r, GetTodosJSON200Response(convertDBTodosIntoTodos(res)))
 }
 
 func (s *TodoServer) AddTodo(w http.ResponseWriter, r *http.Request) {
@@ -60,7 +60,7 @@ func (s *TodoServer) AddTodo(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	todo, err := s.queries.CreateTodo(ctx, mutateNewTodoIntoCreateTodoParams(newTodo))
+	todo, err := s.queries.CreateTodo(ctx, convertNewTodoIntoCreateTodoParams(newTodo))
 	if err != nil {
 		render.Render(
 			w, r,
@@ -71,7 +71,7 @@ func (s *TodoServer) AddTodo(w http.ResponseWriter, r *http.Request) {
 
 	render.Render(
 		w, r,
-		AddTodoJSON200Response(mutateDBTodoIntoTodo(todo)),
+		AddTodoJSON200Response(convertDBTodoIntoTodo(todo)),
 	)
 }
 
@@ -89,7 +89,7 @@ func (s *TodoServer) FindTodoByID(w http.ResponseWriter, r *http.Request, id int
 
 	render.Render(
 		w, r,
-		FindTodoByIDJSON200Response(mutateDBTodoIntoTodo(todo)),
+		FindTodoByIDJSON200Response(convertDBTodoIntoTodo(todo)),
 	)
 
 }
@@ -108,7 +108,7 @@ func (s *TodoServer) DeleteTodo(w http.ResponseWriter, r *http.Request, id int64
 	if err != nil {
 		render.Render(
 			w, r,
-			AddTodoJSONDefaultResponse(Error{Message: fmt.Sprint("cannot delete todo:", err)}).Status(http.StatusBadRequest),
+			AddTodoJSONDefaultResponse(Error{Message: fmt.Sprint("cannot delete todo: ", err)}).Status(http.StatusBadRequest),
 		)
 		return
 	}
