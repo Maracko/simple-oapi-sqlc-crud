@@ -9,8 +9,6 @@ It supports CRUD operations for "todo" entities.
 1. Modify the `todo-spec.yaml`.
 2. Run `go generate ./...` inside root to regenerate the API.
 
-**Important** If go generate doesn't work(`go mod tidy` removes it's dependancies) run `go get github.com/discord-gophers/goapi-gen` first.
-
 ## SQL
 
 To generate SQL boilerplate for go you need `sqlc` installed.  
